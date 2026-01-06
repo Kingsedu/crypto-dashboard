@@ -10,6 +10,21 @@ import { cn } from "@/lib/utils";
 
 import React from "react";
 
+interface DataTableProps<T> {
+  columns: Array<{
+    header: React.ReactNode;
+    cell: (row: T, rowIndex: number) => React.ReactNode;
+  }>;
+  data: T[];
+  rowKey: (row: T, rowIndex: number) => string | number;
+  tableClassName?: string;
+  headerRowClassName?: string;
+  headerCellClassName?: string;
+  bodyRowClassName?: string;
+  bodyCellClassName?: string;
+  headerClassName?: string;
+}
+
 const DataTable = <T,>({
   columns,
   data,
@@ -24,7 +39,7 @@ const DataTable = <T,>({
   return (
     <Table className={cn("custom-scrollbar", tableClassName)}>
       <TableHeader className={headerClassName}>
-        <TableRow className={cn("hover:bg-transparent!", headerRowClassName)}>
+        <TableRow className={cn("!hover:bg-transparent", headerRowClassName)}>
           {columns.map((column, i) => (
             <TableHead
               key={i}
